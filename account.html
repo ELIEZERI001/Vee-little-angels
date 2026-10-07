@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Victory Little Angels</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>🚚 Free delivery on orders above Ksh 2,000</span>
+      <span>📞 +254 745 682 817</span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🍼</span>
+        <span class="logo-text">Victory <strong>Little Angels</strong></span>
+      </a>
+      <div class="nav-actions" style="margin-left:auto;">
+        <a href="cart.html" class="nav-link cart-link">
+          <span class="nav-icon">🛒</span><span>Cart</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="nav-link" id="logoutBtn" style="background:none;border:none;cursor:pointer;">
+          <span class="nav-icon">🚪</span><span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUCCESS BANNER -->
+  <div id="successBanner" class="success-banner" style="display:none;">
+    <div class="container">
+      🎉 <strong>Order placed successfully!</strong> We'll contact you shortly to confirm delivery.
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="account-page">
+    <div class="container">
+
+      <!-- Profile card -->
+      <div class="account-header">
+        <div class="avatar" id="userAvatar">👤</div>
+        <div>
+          <h1 id="userName">Loading...</h1>
+          <p id="userEmail" class="muted">--</p>
+          <p id="userPhone" class="muted">--</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="account-tabs">
+        <button class="acc-tab active" data-panel="orders">📦 My Orders</button>
+        <button class="acc-tab" data-panel="profile">👤 Profile</button>
+      </div>
+
+      <!-- Orders panel -->
+      <div class="acc-panel active" id="panel-orders">
+        <h2 class="panel-title">Order History</h2>
+        <div id="ordersList">
+          <p class="muted">Loading orders...</p>
+        </div>
+      </div>
+
+      <!-- Profile panel -->
+      <div class="acc-panel" id="panel-profile">
+        <h2 class="panel-title">Profile Info</h2>
+        <div class="profile-info">
+          <div><strong>Name:</strong> <span id="pName">--</span></div>
+          <div><strong>Email:</strong> <span id="pEmail">--</span></div>
+          <div><strong>Phone:</strong> <span id="pPhone">--</span></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script src="js/cart.js"></script>
+  <script src="js/account.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart — Victory Little Angels</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>🚚 Free delivery on orders above Ksh 2,000</span>
+      <span>📞 +254 745 682 817</span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🍼</span>
+        <span class="logo-text">Victory <strong>Little Angels</strong></span>
+      </a>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search diapers, toys, clothes...">
+        <button id="searchBtn">🔍</button>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link"><span class="nav-icon">👤</span><span>Login</span></a>
+        <a href="cart.html" class="nav-link cart-link">
+          <span class="nav-icon">🛒</span><span>Cart</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="cart-page">
+    <div class="container">
+
+      <h1 class="page-title">My Shopping Cart 🛒</h1>
+
+      <div class="cart-layout">
+
+        <!-- LEFT: Cart Items -->
+        <div class="cart-items-box">
+          <div id="cartItems"></div>
+        </div>
+
+        <!-- RIGHT: Summary -->
+        <aside class="cart-summary">
+          <h2>Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">Ksh 0</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span id="delivery">Ksh 0</span>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total</span>
+            <span id="total">Ksh 0</span>
+          </div>
+
+          <a href="checkout.html" class="btn btn-primary checkout-btn" id="checkoutBtn">
+            Proceed to Checkout →
+          </a>
+
+          <a href="shop.html" class="continue-link">← Continue Shopping</a>
+
+          <div class="summary-note">
+            🔒 Secure checkout • M-Pesa, Card & COD available
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2026 Victory Little Angels. All rights reserved.</p>
+        <p>Made with 💕 in Kenya</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart-page.js"></script>
+
+</body>
+</html>

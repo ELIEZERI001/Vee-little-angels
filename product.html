@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Victory Little Angels</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/product.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>🚚 Free delivery on orders above Ksh 2,000</span>
+      <span>📞 +254 745 682 817</span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🍼</span>
+        <span class="logo-text">Victory <strong>Little Angels</strong></span>
+      </a>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search diapers, toys, clothes...">
+        <button id="searchBtn">🔍</button>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link"><span class="nav-icon">👤</span><span>Login</span></a>
+        <a href="cart.html" class="nav-link cart-link">
+          <span class="nav-icon">🛒</span><span>Cart</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="product-page">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / 
+        <a href="shop.html" id="bcShop">Shop</a> / 
+        <span id="bcProduct">Product</span>
+      </div>
+
+      <!-- Product layout -->
+      <div class="product-layout" id="productDetail">
+        <p style="text-align:center;padding:40px;">Loading product...</p>
+      </div>
+
+      <!-- Description tabs -->
+      <div class="product-tabs">
+        <button class="p-tab active" data-tab="desc">Description</button>
+        <button class="p-tab" data-tab="reviews">Reviews</button>
+        <button class="p-tab" data-tab="delivery">Delivery & Returns</button>
+      </div>
+
+      <div class="p-panel active" id="panel-desc"></div>
+      <div class="p-panel" id="panel-reviews"></div>
+      <div class="p-panel" id="panel-delivery"></div>
+
+      <!-- Related products -->
+      <section class="related">
+        <h2 class="section-title">You May Also Like</h2>
+        <div class="product-grid" id="relatedGrid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2026 Victory Little Angels. All rights reserved.</p>
+        <p>Made with 💕 in Kenya</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/product.js"></script>
+
+</body>
+</html>

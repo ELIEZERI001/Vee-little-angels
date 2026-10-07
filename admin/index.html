@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Victory Little Angels</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #F5F5F5;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Login gate */
+    .gate {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #FF6B9D 0%, #6BC5FF 100%);
+      padding: 20px;
+    }
+    .gate-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .gate-box h1 { font-size: 22px; margin-bottom: 6px; }
+    .gate-box p { color: #666; font-size: 14px; margin-bottom: 24px; }
+    .gate-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .gate-box input:focus { border-color: #FF6B9D; }
+    .gate-box button {
+      width: 100%;
+      padding: 14px;
+      background: #FF6B9D;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .gate-box button:hover { background: #E85A8A; }
+    .gate-err { color: #E53935; font-size: 13px; margin-top: 12px; min-height: 18px; }
+
+    /* Admin panel */
+    .admin-wrap { display: none; }
+    .admin-wrap.show { display: block; }
+
+    .admin-header {
+      background: #2C2C2C;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-header h1 { font-size: 18px; margin: 0; }
+    .admin-header .user-info { font-size: 13px; display: flex; gap: 16px; align-items: center; }
+    .admin-header button {
+      background: #E53935;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 4px;
+      background: white;
+      padding: 8px 24px;
+      border-bottom: 1px solid #eee;
+      overflow-x: auto;
+    }
+    .admin-tab {
+      padding: 10px 18px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .admin-tab.active { background: #FF6B9D; color: white; }
+
+    .admin-content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .stat-card .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #FF6B9D;
+      font-family: 'Poppins', sans-serif;
+    }
+    .stat-card .stat-label {
+      font-size: 13px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .panel-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    .panel-card h2 { font-size: 18px; margin: 0 0 16px; }
+
+    .adm-form-group { margin-bottom: 14px; }
+    .adm-form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .adm-form-group input,
+    .adm-form-group select,
+    .adm-form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .adm-form-group input:focus,
+    .adm-form-group select:focus,
+    .adm-form-group textarea:focus {
+      border-color: #FF6B9D;
+    }
+    .adm-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .adm-btn {
+      padding: 12px 22px;
+      background: #FF6B9D;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .adm-btn:hover { background: #E85A8A; }
+    .adm-btn.secondary { background: #6BC5FF; }
+    .adm-btn.danger { background: #E53935; }
+    .adm-btn.small { padding: 6px 12px; font-size: 12px; }
+
+    /* Lists */
+    .admin-list-item {
+      display: grid;
+      grid-template-columns: 60px 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .admin-list-item:last-child { border-bottom: none; }
+    .list-emoji {
+      width: 60px;
+      height: 60px;
+      background: #F5F5F5;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .list-info h4 { font-size: 14px; margin: 0 0 4px; }
+    .list-info p { font-size: 12px; color: #888; margin: 0; }
+    .list-price {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #FF6B9D;
+      font-size: 15px;
+    }
+    .list-actions { display: flex; gap: 6px; }
+
+    .order-row {
+      padding: 16px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .order-row:last-child { border-bottom: none; }
+    .order-row .row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .order-row .row-id {
+      font-weight: 700;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .order-row .row-details {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .status-pending { background: #FFF4CC; color: #B8860B; }
+    .status-processing { background: #E5F3FF; color: #1E73BE; }
+    .status-delivered { background: #E8FFE5; color: #2E7D32; }
+    .status-cancelled { background: #FFE5E5; color: #C62828; }
+
+    .status-select {
+      padding: 4px 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .adm-form-row { grid-template-columns: 1fr; }
+      .admin-list-item {
+        grid-template-columns: 50px 1fr;
+      }
+      .list-price, .list-actions { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN GATE -->
+  <div class="gate" id="gate">
+    <div class="gate-box">
+      <h1>🔐 Admin Login</h1>
+      <p>Victory Little Angels — Staff Only</p>
+            <input type="email" id="gateEmail" placeholder="Admin email" autocomplete="off">
+      <input type="password" id="gatePassword" placeholder="Password" autocomplete="new-password">
+      <button id="gateBtn">Login as Admin</button>
+      <p class="gate-err" id="gateErr"></p>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-wrap" id="adminWrap">
+
+    <header class="admin-header">
+      <h1>🍼 Victory Little Angels — Admin</h1>
+      <div class="user-info">
+        <span id="adminEmail">--</span>
+        <button id="adminLogout">Logout</button>
+      </div>
+    </header>
+
+    <nav class="admin-tabs">
+      <button class="admin-tab active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="admin-tab" data-tab="products">📦 Products</button>
+      <button class="admin-tab" data-tab="add-product">➕ Add Product</button>
+      <button class="admin-tab" data-tab="orders">🛒 Orders</button>
+      <button class="admin-tab" data-tab="messages">💬 Messages</button>
+    </nav>
+
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div class="admin-panel active" id="panel-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="statProducts">0</div>
+            <div class="stat-label">Total Products</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statOrders">0</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statRevenue">Ksh 0</div>
+            <div class="stat-label">Total Revenue</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statMessages">0</div>
+            <div class="stat-label">New Messages</div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <h2>Recent Orders</h2>
+          <div id="recentOrders"><p style="color:#888;">Loading...</p></div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="admin-panel" id="panel-products">
+        <div class="panel-card">
+          <h2>All Products</h2>
+          <div id="adminProductsList"><p style="color:#888;">Loading...</p></div>
+        </div>
+      </div>
+
+      <!-- ADD PRODUCT -->
+      <div class="admin-panel" id="panel-add-product">
+        <div class="panel-card">
+          <h2 id="productFormTitle">Add New Product</h2>
+          <form id="productForm">
+            <input type="hidden" id="pId">
+
+            <div class="adm-form-row">
+              <div class="adm-form-group">
+                <label>Product Name *</label>
+                <input type="text" id="pName" required>
+              </div>
+              <div class="adm-form-group">
+                <label>Category *</label>
+                <select id="pCategory" required>
+                  <option value="">-- Select --</option>
+                  <option value="diapers">Diapers</option>
+                  <option value="feeding">Feeding</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="toys">Toys</option>
+                  <option value="strollers">Strollers</option>
+                  <option value="bath">Bath</option>
+                  <option value="nursery">Nursery</option>
+                  <option value="health">Health</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="adm-form-row">
+              <div class="adm-form-group">
+                <label>Price (Ksh) *</label>
+                <input type="number" id="pPrice" required min="0">
+              </div>
+              <div class="adm-form-group">
+                <label>Old Price (optional)</label>
+                <input type="number" id="pOldPrice" min="0">
+              </div>
+            </div>
+
+            <div class="adm-form-row">
+              <div class="adm-form-group">
+                <label>Emoji (fallback image)</label>
+                <input type="text" id="pEmoji" placeholder="🧷" maxlength="4">
+              </div>
+              <div class="adm-form-group">
+                <label>Stock</label>
+                <input type="number" id="pStock" value="50" min="0">
+              </div>
+            </div>
+
+            <div class="adm-form-group">
+                            <label>Image URL (from ImgBB)</label>
+              <input type="url" id="pImage" placeholder="https://i.ibb.co/xxxxx/photo.jpg">
+              <div id="imagePreview" style="margin-top:12px;display:none;">
+                <img id="previewImg" style="max-width:150px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <p style="font-size:12px;color:#888;margin-top:6px;">Preview</p>
+              </div>
+              <p style="font-size:12px;color:#888;margin-top:6px;">
+                Upload to <a href="https://imgbb.com" target="_blank" style="color:#FF6B9D;">imgbb.com</a> → copy the direct link
+              </p>
+            </div>
+
+            <div class="adm-form-group">
+              <label>Description</label>
+              <textarea id="pDesc" rows="3"></textarea>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:8px;">
+              <button type="submit" class="adm-btn" id="saveProductBtn">Save Product</button>
+              <button type="button" class="adm-btn secondary" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="admin-panel" id="panel-orders">
+        <div class="panel-card">
+          <h2>All Orders</h2>
+          <div id="adminOrdersList"><p style="color:#888;">Loading...</p></div>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="admin-panel" id="panel-messages">
+        <div class="panel-card">
+          <h2>Customer Messages</h2>
+          <div id="adminMessagesList"><p style="color:#888;">Loading...</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+</html>

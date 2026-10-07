@@ -1,0 +1,132 @@
+/* ============================================
+   VICTORY LITTLE ANGELS — Shop Page
+   ============================================ */
+
+.shop-page {
+  padding: 30px 0 70px;
+  background: #FFF9FB;
+  min-height: 70vh;
+}
+
+.shop-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ===== FILTERS ===== */
+.filters {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 100px;
+}
+
+.filters h3 {
+  font-size: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.filter-group {
+  margin-bottom: 24px;
+}
+
+.filter-group h4 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--dark);
+  transition: color 0.2s;
+}
+
+.filter-group label:hover { color: var(--pink); }
+
+.filter-group input[type="radio"] {
+  accent-color: var(--pink);
+}
+
+.price-inputs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.price-inputs input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+}
+
+.price-inputs input:focus { border-color: var(--pink); }
+
+.apply-price {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* ===== SHOP MAIN ===== */
+.shop-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.shop-topbar p {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.shop-topbar select {
+  padding: 8px 12px;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  background: var(--white);
+}
+
+.shop-topbar select:focus { border-color: var(--pink); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .shop-layout { grid-template-columns: 1fr; }
+  .filters { position: static; }
+}
+
+@media (max-width: 600px) {
+  .shop-topbar { flex-direction: column; gap: 10px; align-items: stretch; }
+}

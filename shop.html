@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Victory Little Angels</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>🚚 Free delivery on orders above Ksh 2,000</span>
+      <span>📞 +254 745 682 817</span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🍼</span>
+        <span class="logo-text">Victory <strong>Little Angels</strong></span>
+      </a>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search diapers, toys, clothes...">
+        <button id="searchBtn">🔍</button>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link"><span class="nav-icon">👤</span><span>Login</span></a>
+        <a href="cart.html" class="nav-link cart-link">
+          <span class="nav-icon">🛒</span><span>Cart</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY NAV -->
+  <nav class="cat-nav">
+    <div class="container cat-nav-inner">
+      <a href="shop.html">All</a>
+      <a href="shop.html?cat=diapers">🍼 Diapers</a>
+      <a href="shop.html?cat=feeding">🍽️ Feeding</a>
+      <a href="shop.html?cat=clothing">👶 Clothing</a>
+      <a href="shop.html?cat=toys">🧸 Toys</a>
+      <a href="shop.html?cat=strollers">🚼 Strollers</a>
+      <a href="shop.html?cat=bath">🛁 Bath</a>
+      <a href="shop.html?cat=nursery">🛏️ Nursery</a>
+      <a href="shop.html?cat=health">💊 Health</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="shop-page">
+    <div class="container">
+
+      <div class="shop-layout">
+
+        <!-- SIDEBAR FILTERS -->
+        <aside class="filters">
+          <h3>Filters</h3>
+
+          <div class="filter-group">
+            <h4>Category</h4>
+            <label><input type="radio" name="cat" value="" checked> All</label>
+            <label><input type="radio" name="cat" value="diapers"> Diapers</label>
+            <label><input type="radio" name="cat" value="feeding"> Feeding</label>
+            <label><input type="radio" name="cat" value="clothing"> Clothing</label>
+            <label><input type="radio" name="cat" value="toys"> Toys</label>
+            <label><input type="radio" name="cat" value="strollers"> Strollers</label>
+            <label><input type="radio" name="cat" value="bath"> Bath</label>
+            <label><input type="radio" name="cat" value="nursery"> Nursery</label>
+            <label><input type="radio" name="cat" value="health"> Health</label>
+          </div>
+
+          <div class="filter-group">
+            <h4>Price (Ksh)</h4>
+            <div class="price-inputs">
+              <input type="number" id="minPrice" placeholder="Min" min="0">
+              <input type="number" id="maxPrice" placeholder="Max" min="0">
+            </div>
+            <button class="btn btn-primary apply-price" id="applyPrice">Apply</button>
+          </div>
+
+          <button class="btn btn-outline reset-btn" id="resetFilters">Reset All</button>
+        </aside>
+
+        <!-- PRODUCTS -->
+        <section class="shop-main">
+          <div class="shop-topbar">
+            <p id="resultCount">Loading...</p>
+            <select id="sortSelect">
+              <option value="popular">Sort: Popular</option>
+              <option value="price-asc">Price: Low → High</option>
+              <option value="price-desc">Price: High → Low</option>
+              <option value="name-asc">Name: A → Z</option>
+            </select>
+          </div>
+
+          <div class="product-grid" id="shopGrid"></div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2026 Victory Little Angels. All rights reserved.</p>
+        <p>Made with 💕 in Kenya</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/shop.js"></script>
+
+</body>
+</html>
