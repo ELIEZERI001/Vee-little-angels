@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   checkSuccessBanner();
 
   // Watch auth state
-  auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
     if (!user) {
-      window.location.href = "login.html";
+      window.location.replace("login.html");
       return;
     }
     loadUserProfile(user);
@@ -39,9 +39,14 @@ function setupLogout() {
   const btn = document.getElementById("logoutBtn");
   if (!btn) return;
   btn.addEventListener("click", async () => {
-    await auth.signOut();
-    showToast("👋 Logged out");
-    setTimeout(() => window.location.href = "index.html", 700);
+    try {
+      await auth.signOut();
+      // Clear back button cache — forces fresh page load on back
+      window.location.replace("index.html");
+    } catch (e) {
+      console.error(e);
+      window.location.replace("index.html");
+    }
   });
 }
 

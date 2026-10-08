@@ -38,9 +38,9 @@ function setupLogin() {
     errBox.textContent = "";
 
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+            await auth.signInWithEmailAndPassword(email, password);
       showToast("✅ Logged in successfully!");
-      setTimeout(() => window.location.href = "account.html", 800);
+      setTimeout(() => window.location.replace("account.html"), 800);
     } catch (err) {
       console.error(err);
       errBox.textContent = friendlyError(err.code);
@@ -78,8 +78,8 @@ function setupSignup() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      showToast("🎉 Account created!");
-      setTimeout(() => window.location.href = "account.html", 800);
+           showToast("🎉 Account created!");
+      setTimeout(() => window.location.replace("account.html"), 800);
     } catch (err) {
       console.error(err);
       errBox.textContent = friendlyError(err.code);

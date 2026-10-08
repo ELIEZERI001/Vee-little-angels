@@ -52,8 +52,14 @@ auth.onAuthStateChanged(async (user) => {
 
 /* ===== LOGOUT ===== */
 document.getElementById("adminLogout").addEventListener("click", async () => {
-  await auth.signOut();
-  location.reload();
+  try {
+    await auth.signOut();
+    // Go straight to homepage (not the admin login gate)
+    window.location.replace("../index.html");
+  } catch (e) {
+    console.error(e);
+    window.location.replace("../index.html");
+  }
 });
 
 /* ===== INIT ===== */
