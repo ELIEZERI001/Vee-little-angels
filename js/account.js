@@ -83,12 +83,17 @@ async function loadUserProfile(user) {
 async function loadOrders(uid) {
   const list = document.getElementById("ordersList");
   try {
-    const snap = await db.collection("orders")
-      .where("customer.email", "==", auth.currentUser.email)
-      .orderBy("createdAt", "desc")
-      .get();
+    const userEmail = auth.currentUser.email;
 
-    if (snap.empty) {
+    // Get ALL orders, filter locally (avoids Firestore index requirement)
+    const snap = await db.collection("orders").get();
+
+    const myOrders = snap.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .filter(o => o.customer && o.customer.email === userEmail)
+      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+    if (myOrders.length === 0) {
       list.innerHTML = `
         <div class="empty-orders">
           <div style="font-size:60px;">📦</div>
@@ -100,28 +105,42 @@ async function loadOrders(uid) {
       return;
     }
 
-    list.innerHTML = snap.docs.map(doc => {
-      const o = doc.data();
+    list.innerHTML = myOrders.map(o => {
       const date = o.createdAt?.toDate?.().toLocaleDateString("en-KE", {
         day: "numeric", month: "short", year: "numeric"
       }) || "Just now";
 
-      const items = o.items.map(it =>
+      const items = (o.items || []).map(it =>
         `<span class="order-chip">${it.emoji || "🛒"} ${it.name} ×${it.qty}</span>`
       ).join("");
+
+      // Status timeline
+      const statuses = ["pending", "processing", "delivered"];
+      const currentIdx = statuses.indexOf(o.status);
+      const timeline = `
+        <div class="order-timeline">
+          ${statuses.map((s, i) => `
+            <div class="timeline-step ${i <= currentIdx ? 'done' : ''} ${o.status === 'cancelled' ? 'cancelled' : ''}">
+              <div class="timeline-dot">${i <= currentIdx ? '✓' : ''}</div>
+              <span>${s.charAt(0).toUpperCase() + s.slice(1)}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
 
       return `
         <div class="order-card">
           <div class="order-top">
             <div>
-              <span class="order-id">#${doc.id.slice(0,8).toUpperCase()}</span>
+              <span class="order-id">#${o.id.slice(0,8).toUpperCase()}</span>
               <span class="order-date">${date}</span>
             </div>
             <span class="order-status status-${o.status}">${o.status}</span>
           </div>
           <div class="order-items-list">${items}</div>
+          ${o.status !== "cancelled" ? timeline : ""}
           <div class="order-bottom">
-            <span>Payment: <strong>${o.payment.toUpperCase()}</strong></span>
+            <span>Payment: <strong>${(o.payment || "").toUpperCase()}</strong></span>
             <span class="order-total">Total: ${formatKsh(o.total)}</span>
           </div>
         </div>

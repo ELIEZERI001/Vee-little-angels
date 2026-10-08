@@ -634,3 +634,80 @@
   min-width: 80px;
   color: var(--dark);
 }
+/* ===== ORDER TIMELINE ===== */
+.order-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+  margin: 12px 0;
+  border-top: 1px dashed #eee;
+  border-bottom: 1px dashed #eee;
+  position: relative;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+}
+
+.timeline-step span {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.timeline-step.done span {
+  color: var(--pink);
+}
+
+.timeline-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.timeline-step.done .timeline-dot {
+  background: var(--pink);
+  box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15);
+}
+
+/* Connecting line */
+.timeline-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #eee;
+  z-index: 1;
+}
+
+.timeline-step.done:not(:last-child)::after {
+  background: var(--pink);
+}
+
+/* Cancelled state */
+.timeline-step.cancelled .timeline-dot {
+  background: #E53935;
+}
+
+.timeline-step.cancelled span {
+  color: #E53935;
+}

@@ -8,7 +8,19 @@ const FREE_DELIVERY_MIN = 2000;
 document.addEventListener("DOMContentLoaded", () => {
   renderOrderSummary();
   setupPlaceOrder();
+  prefillUserInfo();
 });
+
+function prefillUserInfo() {
+  auth.onAuthStateChanged(user => {
+    if (user && user.email) {
+      const emailField = document.getElementById("email");
+      if (emailField && !emailField.value) {
+        emailField.value = user.email;
+      }
+    }
+  });
+}
 
 /* Render order summary on the right */
 function renderOrderSummary() {
